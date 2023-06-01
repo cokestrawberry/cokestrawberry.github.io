@@ -26,25 +26,25 @@
   2. Medium
       * 다음은 Medium 단계 command injection의 공격을 수행할 서비스의 소스코드이다.<br/><br/>
     <img src="/assets/230601/230601_screenshot_4.png" width="50%" height="50%" alt="Screenshot_of_source_code(medium)"><br/><br/>
-      * 소스코드를 확인하면, 이전 단계에서 사용한 ';'나 '&'가 입력되면 공백문자로 치환해 사용할 수 없게 하는 코드가 추가되었다.
-      * 하지만 이 두가지 이외에도 여러 명령어를 함께 입력할 수 있는 방법이 많이 있는데, 그 중 하나가 파이프(|)이다.
+      * 소스코드를 확인하면, 이전 단계에서 사용한 ';'나 '&'가 서비스의입력되면 공백문자로 치환해 사용할 수 없게 하는 코드가 추가되었다.
+      * 하지만 이 두가지 이외에도 여러 명령어를 함께 입력할 수 있는 방법이 많이 있는데, 그 중 하나가 파이프(%#124;)이다.
       * 파이프는 두 명령에 대해 앞선 명령의 결과를 후위 명령의 인자로 전달해 주는 역할을 한다.
-      * Low에서 시도한 것과 유사하게 '127.0.0.1 | cat /etc/passwd'를 실행한다면, 소스코드에서의 'ping -c 4'와 결합하여 다음의 두가지 명령으로 나누어 진다.
+      * Low에서 시도한 것과 유사하게 '127.0.0.1 %#124; cat /etc/passwd'를 실행한다면, 소스코드에서의 'ping -c 4'와 결합하여 다음의 두가지 명령으로 나누어 진다.
           - ping -c 4 127.0.0.1
           - cat /etc/passwd
       * 이때 파이프에 의해 ping명령의 결과가 cat명령의 인자로 전달되는데, cat명령에는 인자로 /etc/passwd가 이미 연결되어 있으므로 ping명령의 결과는 무시된다.
-      * 따라서 입력값으로 '127.0.0.1 | cat /etc/passwd'을 전달하면 다음과 같은 결과를 받을 수 있다.<br/><br/>
-     <img src="/assets/230601/230601_screenshot_5.png" width="50%" height="50%" alt="Screenshot_of_return:127.0.0.1 | cat /etc/passwd"><br/><br/>
+      * 따라서 입력값으로 '127.0.0.1 %#124; cat /etc/passwd'을 전달하면 다음과 같은 결과를 받을 수 있다.<br/><br/>
+     <img src="/assets/230601/230601_screenshot_5.png" width="50%" height="50%" alt="Screenshot_of_return:127.0.0.1 %#124; cat /etc/passwd"><br/><br/>
 
   3. High
       * 다음은 High 단계 command injection의 공격을 수행할 서비스의 소스코드이다.<br/><br/>
     <img src="/assets/230601/230601_screenshot_6.png" width="50%" height="50%" alt="Screenshot_of_source_code(high)"><br/><br/>
       * 소스코드를 확인하면, 다른 특수문자들도 모두 공백문자로 치환되게 설정되어 있다.
-      * 하지만 코드를 잘 확인해 보면, 파이프를 공백문자로 치환하는 부분에 있어 '| '과 같이 공백이 한 칸 들어가 있다.
-      * 따라서 '127.0.0.1 || cat /etc/passwd'를 입력하면 먼저 '| '이 공백으로 치환되어 '127.0.0.1 |cat /etc/passwd'이 되어 실행되게 된다.
-      * 이떼 '||'의 탐지보다 '| '의 탐지가 먼저 이루어져 위와 같은 결과가 발생하게 된다.
+      * 하지만 코드를 잘 확인해 보면, 파이프를 공백문자로 치환하는 부분에 있어 '%#124; '과 같이 공백이 한 칸 들어가 있다.
+      * 따라서 '127.0.0.1 %#124;%#124; cat /etc/passwd'를 입력하면 먼저 '%#124; '이 공백으로 치환되어 '127.0.0.1 %#124;cat /etc/passwd'이 되어 실행되게 된다.
+      * 이떼 '%#124;%#124;'의 탐지보다 '%#124; '의 탐지가 먼저 이루어져 위와 같은 결과가 발생하게 된다.
       * 결과적으로 다음과 같은 결과를 받을 수 있다.<br/><br/>
-    <img src="/assets/230601/230601_screenshot_7.png" width="50%" height="50%" alt="Screenshot_of_return:127.0.0.1 || cat /etc/passwd"><br/><br/>
+    <img src="/assets/230601/230601_screenshot_7.png" width="50%" height="50%" alt="Screenshot_of_return:127.0.0.1 %#124;%#124; cat /etc/passwd"><br/><br/>
 
 ### 결론
   1. **원인 분석**
