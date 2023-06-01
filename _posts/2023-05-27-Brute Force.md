@@ -39,11 +39,11 @@
       * 로그인에 실패할 때 마다 login_trial의 값이 1씩 증가한다.<br/>
       * 지정된 횟수 (예: 5회)에 도달하면 account_lock의 값 TRUE로 변경. 즉, 계정을 잠궈 접속 시도 불가능 하게 만든다.<br/>
 
-### My Opinion<br/>
+### 마치며<br/>
   * 이번 주차는 환경 설정에서 속된말로 전을 굽는 바람에 많이 헤맸다.
   * 그래서 정말 기본적인 수준의 실습만을 진행했고, 해당 문제(DVWA에 대한 brute force 공격)의 진행 과정을 위주로 write-up을 작성하였다.
   * 아직 피드백을 받지는 않았지만, 스터디 미팅 시간에 받은 간이 피드백을 바탕으로 내용을 좀 추가 했다.
   * 공격 툴을 만드는 과정은 진행하지 않았는데, 다음 주차 실습에서 툴 제작까지는 아니더라도 구글링해 찾은 툴들을 분석(동작 방식 등)하는 과정이 있어도 괜찮을 것 같다.
 
-### References<br/>
+### 레퍼런스<br/>
   * [OWASP - Brute Force Attack](https://owasp.org/www-community/attacks/Brute_force_attack)
