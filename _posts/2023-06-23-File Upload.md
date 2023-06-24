@@ -136,9 +136,8 @@
          }
 
          // Delete any temp files
-          if( file_exists( $temp_file ) ) {
+          if( file_exists( $temp_file ) )
             unlink( $temp_file );
-          }
         }
         else {
           // Invalid file
