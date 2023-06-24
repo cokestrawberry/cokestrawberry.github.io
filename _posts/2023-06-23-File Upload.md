@@ -133,9 +133,9 @@
           else {
             // No
             echo '<pre>Your image was not uploaded.</pre>';
-         }
+          }
 
-         // Delete any temp files
+          // Delete any temp files
           if( file_exists( $temp_file ) )
             unlink( $temp_file );
         }
@@ -144,7 +144,7 @@
           echo '<pre>Your image was not uploaded. We can only accept JPEG or PNG images.</pre>';
         }
       }
-        
+
       // Generate Anti-CSRF token
       generateSessionToken();
       ?> 
