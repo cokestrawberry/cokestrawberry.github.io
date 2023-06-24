@@ -27,7 +27,38 @@
 
   2. Medium
       * 우선 해당 난이도의 시스템 소스코드를 확인해 보면 다음과 같다. 해당 코드를 확인해보면, 업로드한 파일의 형식을 확인하여 jpeg 또는 png파일만 업로드를 허용하고 있다.
-      <img src="/assets/230623/230623_screenshot_5.png" width="100%" height="100%" alt="Screenshot_of_medium_code"><br/><br/>
+      ```php
+      <?php
+      if( isset( $_POST[ 'Upload' ] ) ) {
+        // Where are we going to be writing to?
+        $target_path  = DVWA_WEB_PAGE_TO_ROOT . "hackable/uploads/";
+        $target_path .= basename( $_FILES[ 'uploaded' ][ 'name' ] );
+
+        // File information
+        $uploaded_name = $_FILES[ 'uploaded' ][ 'name' ];
+        $uploaded_type = $_FILES[ 'uploaded' ][ 'type' ];
+        $uploaded_size = $_FILES[ 'uploaded' ][ 'size' ];
+
+        // Is it an image?
+        if( ( $uploaded_type == "image/jpeg" || $uploaded_type == "image/png" ) && ( $uploaded_size < 100000 ) ) {
+
+          // Can we move the file to the upload folder?
+          if( !move_uploaded_file( $_FILES[ 'uploaded' ][ 'tmp_name' ], $target_path ) ) {
+            // No
+            echo '<pre>Your image was not uploaded.</pre>';
+          }
+          else {
+            // Yes!
+            echo "<pre>{$target_path} succesfully uploaded!</pre>";
+          }
+        }
+        else {
+          // Invalid file
+          echo '<pre>Your image was not uploaded. We can only accept JPEG or PNG images.</pre>';
+        }
+      }
+      ?> 
+      ```
       * 따라서 burpsuite를 이용하여 시스템에 전달되는 파일의 형식을 확인해보면 php형식의 파일이 전달된다고 쓰인 부분이 있는데, 해당 위치의 값을 시스템에서 허가하고 있는 형식인 image/jpeg으로 변경해주고 forward로 전달해 주었다.
       <img src="/assets/230623/230623_screenshot_6.png" width="100%" height="100%" alt="Screenshot_of_burpesuite_intercept"><br/><br/>
       * 그 결과, low에서처럼 'cat /etc/passwd'을 인자로 설정하면 해당 결과를 확인할 수 있다.
@@ -36,12 +67,89 @@
 ### 결론
   1. **원인 분석**
       * Low : 시스템의 소스코드를 확인해 보면 다음과 같다. 해당 소스코드를 확인해보면, 단순히 지정된 위치에 파일을 업로드하고, 업로드가 정상적으로 수행되었는지 여부를 반환한다. 해당 과정에서 스크립트 언어 형식을 차단한다거나 등의 시큐어 코딩이 전혀 되어있지 않아 문제가 되는것으로 보이고, 웹쉘이 정상적으로 동작하는 것을 보면 실행 권한 또한 막혀있지 않은것 같다.
-      <img src="/assets/230623/230623_screenshot_7.png" width="100%" height="100%" alt="Screenshot_of_system_code"><br/><br/>
+      ```php
+      <?php
+      if( isset( $_POST[ 'Upload' ] ) ) {
+        // Where are we going to be writing to?
+        $target_path  = DVWA_WEB_PAGE_TO_ROOT . "hackable/uploads/";
+        $target_path .= basename( $_FILES[ 'uploaded' ][ 'name' ] );
+
+        // Can we move the file to the upload folder?
+        if( !move_uploaded_file( $_FILES[ 'uploaded' ][ 'tmp_name' ], $target_path ) ) {
+          // No
+          echo '<pre>Your image was not uploaded.</pre>';
+        }
+        else {
+          // Yes!
+          echo "<pre>{$target_path} succesfully uploaded!</pre>";
+        }
+      }
+      ?> 
+      ```
       * Medium : 위의 실습과정에서 확인한 소스코드를 보면, 업로드된 파일의 형식을 확인하고는 있지만 요청이 인터셉트 되어 이미지 파일인것 처럼 전달되면 취약한 웹쉘의 업로드를 막을 수 없다. 업로드 된 파일의 형식을 확인하는 것이 아닌 다른 공격 차단 방법이 필요해 보인다.
 
   2. **예상 대응 방안**
       * 다음은 impossible 난이도의 소스코드이다. 해당 소스코드를 확인해보면, 이미지 파일 형식의 확장자로 업로드 되었을 경우, 해당 파일을 다시 인코딩하여 시스템에서 허가한 형식의 파일(이미지)만을 업로드 할 수 있게 제한함과 동시에 해당 이미지파일의 변조를 방지한다.
-      <img src="/assets/230623/230623_screenshot_8.png" width="100%" height="100%" alt="Screenshot_of_system_code"><br/><br/>
+      ```php
+      <?php
+      if( isset( $_POST[ 'Upload' ] ) ) {
+
+        // Check Anti-CSRF token
+        checkToken( $_REQUEST[ 'user_token' ], $_SESSION[ 'session_token' ], 'index.php' );
+
+        // File information
+        $uploaded_name = $_FILES[ 'uploaded' ][ 'name' ];
+        $uploaded_ext  = substr( $uploaded_name, strrpos( $uploaded_name, '.' ) + 1);
+        $uploaded_size = $_FILES[ 'uploaded' ][ 'size' ];
+        $uploaded_type = $_FILES[ 'uploaded' ][ 'type' ];
+        $uploaded_tmp  = $_FILES[ 'uploaded' ][ 'tmp_name' ];
+
+        // Where are we going to be writing to?
+        $target_path   = DVWA_WEB_PAGE_TO_ROOT . 'hackable/uploads/';
+        //$target_file   = basename( $uploaded_name, '.' . $uploaded_ext ) . '-';
+        $target_file   =  md5( uniqid() . $uploaded_name ) . '.' . $uploaded_ext;
+        $temp_file     = ( ( ini_get( 'upload_tmp_dir' ) == '' ) ? ( sys_get_temp_dir() ) : ( ini_get( 'upload_tmp_dir' ) ) );
+        $temp_file    .= DIRECTORY_SEPARATOR . md5( uniqid() . $uploaded_name ) . '.' . $uploaded_ext;
+
+        // Is it an image?
+        if( ( strtolower( $uploaded_ext ) == 'jpg' || strtolower( $uploaded_ext ) == 'jpeg' || strtolower( $uploaded_ext ) == 'png' ) && ( $uploaded_size < 100000 ) && ( $uploaded_type == 'image/jpeg' || $uploaded_type == 'image/png' ) && getimagesize( $uploaded_tmp ) ) {
+
+          // Strip any metadata, by re-encoding image (Note, using php-Imagick is recommended over php-GD)
+          if( $uploaded_type == 'image/jpeg' ) {
+            $img = imagecreatefromjpeg( $uploaded_tmp );
+            imagejpeg( $img, $temp_file, 100);
+          }
+          else {
+            $img = imagecreatefrompng( $uploaded_tmp );
+            imagepng( $img, $temp_file, 9);
+          }
+          imagedestroy( $img );
+
+          // Can we move the file to the web root from the temp folder?
+          if( rename( $temp_file, ( getcwd() . DIRECTORY_SEPARATOR . $target_path . $target_file ) ) ) {
+            // Yes!
+            echo "<pre><a href='{$target_path}{$target_file}'>{$target_file}</a> succesfully uploaded!</pre>";
+          }
+          else {
+            // No
+            echo '<pre>Your image was not uploaded.</pre>';
+         }
+
+         // Delete any temp files
+          if( file_exists( $temp_file ) ) {
+            unlink( $temp_file );
+          }
+        }
+        else {
+          // Invalid file
+          echo '<pre>Your image was not uploaded. We can only accept JPEG or PNG images.</pre>';
+        }
+      }
+        
+      // Generate Anti-CSRF token
+      generateSessionToken();
+      ?> 
+      ```
       * 위와 같은 파일 자체를 제한하는 방식 뿐 아니라, 만약 스크립트 언어로 작성된 파일의 업로드가 필요한 경우라면 업로드 대상 디렉터리에 파일의 실행권한을 주지 않도록 설정하기(chmod), 업로드 서버와 메인 동작 서버를 분리하기, 파일 이름을 난수화 하여 공격자가 본인의 웹쉘을 찾지 못하게 하기 등의 방법을 사용할 수 있을것이다.
 
 ### 마치며
