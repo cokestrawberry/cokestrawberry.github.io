@@ -84,8 +84,8 @@
       $query  = "SELECT first_name, last_name FROM users WHERE user_id = '' or '1' = '1';";
       ```
 
-      이렇게 되면 탐색 조건이 <'user_id'의 값이 공백이거나 '1' = '1'인 경우>가 되어 테이블의 모든 데이터들에 대해 <'user_id'의 값이 공백>은 거짓이지만 <'1' = '1'>이 참이 되어 모든 데이터들이 SELECT의 대상이 되고, 그 결과 다음과 같이 모든 데이터들이 출력된다.
-      <img src="/assets/230629/230629_screenshot_1.png" width="100%" height="100%" alt="Screenshot_of_query_request_result"><br/><br/>
+      이렇게 되면 탐색 조건이 <'user_id'의 값이 공백이거나 '1' = '1'인 경우>가 되어 테이블의 모든 데이터들에 대해 <'user_id'의 값이 공백>은 거짓이지만 <'1' = '1'>이 참이 되어 모든 데이터들이 SELECT의 대상이 되고, 그 결과 다음과 같이 모든 데이터들이 출력된다.<br/>
+      <img src="/assets/230629/230629_screenshot_1.png" width="100%" height="100%" alt="Screenshot_of_query_request_result"><br/>
 
   2. Medium
       Medium 난이도 역시 코드를 먼저 확인해보자.
@@ -161,5 +161,74 @@
       id=1+or+1=1
       ```
 
-      그 결과 다음과 같이 원하는 결과를 얻을 수 있다. 작은따옴표 없이도 공격이 수행되는 이유는, 코드가 Low 단계와는 다르게 입력값을 id 변수에 텍스트로 집어넣는것이 아닌 정수로 집어넣기 때문이다.(그리고 이는 인터페이스가 드롭다운 형식으로 되어있기 때문으로 보인다.)
-      <img src="/assets/230629/230629_screenshot_4.png" width="100%" height="100%" alt="Screenshot_of_query_request_result"><br/><br/>
+      그 결과 다음과 같이 원하는 결과를 얻을 수 있다. 작은따옴표 없이도 공격이 수행되는 이유는, 코드가 Low 단계와는 다르게 입력값을 id 변수에 텍스트로 집어넣는것이 아닌 정수로 집어넣기 때문이다.(그리고 이는 인터페이스가 드롭다운 형식으로 되어있기 때문으로 보인다.)<br/>
+      <img src="/assets/230629/230629_screenshot_4.png" width="100%" height="100%" alt="Screenshot_of_query_request_result"><br/>
+
+  3. High
+      High 난이도의 코드는 다음과 같다.
+
+      ```php
+      <?php
+      if( isset( $_SESSION [ 'id' ] ) ) {
+        // Get input
+        $id = $_SESSION[ 'id' ];
+
+        switch ($_DVWA['SQLI_DB']) {
+          case MYSQL:
+            // Check database
+            $query  = "SELECT first_name, last_name FROM users WHERE user_id = '$id' LIMIT 1;";
+            $result = mysqli_query($GLOBALS["___mysqli_ston"], $query ) or die( '<pre>Something went wrong.</pre>' );
+
+            // Get results
+            while( $row = mysqli_fetch_assoc( $result ) ) {
+              // Get values
+              $first = $row["first_name"];
+              $last  = $row["last_name"];
+
+              // Feedback for end user
+              echo "<pre>ID: {$id}<br />First name: {$first}<br />Surname: {$last}</pre>";
+            }
+
+            ((is_null($___mysqli_res = mysqli_close($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);        
+            break;
+          case SQLITE:
+            global $sqlite_db_connection;
+
+            $query  = "SELECT first_name, last_name FROM users WHERE user_id = '$id' LIMIT 1;";
+            #print $query;
+            try {
+              $results = $sqlite_db_connection->query($query);
+            }
+            catch (Exception $e) {
+              echo 'Caught exception: ' . $e->getMessage();
+              exit();
+            }
+
+            if ($results) {
+              while ($row = $results->fetchArray()) {
+                // Get values
+                $first = $row["first_name"];
+                $last  = $row["last_name"];
+
+                // Feedback for end user
+                echo "<pre>ID: {$id}<br />First name: {$first}<br />Surname: {$last}</pre>";
+              }
+            }
+            else {
+              echo "Error in fetch ".$sqlite_db->lastErrorMsg();
+            }
+            break;
+        }
+      }
+      ?> 
+      ```
+
+      코드를 확인해보면 id 변수에 할당되는 값을 'user_id'와 비교할때 길이를 1로 제한하여 어떤 값이 들어오든 맨 앞 한글자만 받아들인다. 따라서 해당 부분을 주석처리 할 수 있다면 원하는대로 SQL Injection을 수행할 수 있을것으로 보인다. 이를 위해 다음과 같은 쿼리문을 입력하였다.
+
+      ```sql
+      1' or '1'='1'; -- 
+      #주석표시(--)뒤 한칸 공백 필요
+      ```
+
+      위의 문장을 입력으로 넣으면, 세미콜론에서 문장이 끝나고 그 이후 부분인 [LIMIT 1;";]은 주석처리되어 무시된다. 그 결과 다음과 같이 원하는 결과를 얻을 수 있다.
+      <img src="/assets/230629/230629_screenshot_5.png" width="100%" height="100%" alt="Screenshot_of_query_request_result"><br/>
