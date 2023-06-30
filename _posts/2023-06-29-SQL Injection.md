@@ -232,3 +232,17 @@
 
       위의 문장을 입력으로 넣으면, 세미콜론에서 문장이 끝나고 그 이후 부분인 [LIMIT 1;";]은 주석처리되어 무시된다. 그 결과 다음과 같이 원하는 결과를 얻을 수 있다.
       <img src="/assets/230629/230629_screenshot_5.png" width="100%" height="100%" alt="Screenshot_of_query_request_result"><br/>
+
+### 결론
+  1. **원인 분석**
+      각 난이도의 입력방식을 보면 입력값에 대한 검사가 되지 않거나 변조에 취약하게 설정되어 있다. 심지어 주어진 값 중에서 골라야 하는 드롭다운에서도 변조가 가능하다는건 조금 놀라웠다.
+
+  2. **예상 대응 방안**
+      입력값들에 대해서 가능한 위험 요소들을 제거하는 것이 아닌, 처음부터 유저들의 입력을 시스템의 운영자가 원하는 형식으로 강제하는 방식의 시큐어 코딩이 필요해 보인다.
+
+### 마치며
+  * 놓치고 지나간 주차들에 대해서 write-up을 준비하고 있는데, 뭐가 문제인지 제대로 공격이 이루어지지 않아서 열심히 공부해보는 중이다. 그리고 지난번 스터디에서 다른분들의 write-up중에서 참고할만한 형식(내용 X)에 대해 벤치마킹을 해보려고 하니 그에 따라 점점 새로 공부할게 늘어가는것 같다.
+
+### 참조
+  * [OWASP - SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection)
+  * [OWASP - SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
