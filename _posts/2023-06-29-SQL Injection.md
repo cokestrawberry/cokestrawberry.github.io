@@ -9,7 +9,7 @@
 
 ### 본론
 **실습 과정**
-  1. Low
+  1. Low<br/>
       우선 소스코드를 확인해보자.
 
       ```php
@@ -87,7 +87,7 @@
       이렇게 되면 탐색 조건이 <'user_id'의 값이 공백이거나 '1' = '1'인 경우>가 되어 테이블의 모든 데이터들에 대해 <'user_id'의 값이 공백>은 거짓이지만 <'1' = '1'>이 참이 되어 모든 데이터들이 SELECT의 대상이 되고, 그 결과 다음과 같이 모든 데이터들이 출력된다.<br/>
       <img src="/assets/230629/230629_screenshot_1.png" width="100%" height="100%" alt="Screenshot_of_query_request_result"><br/>
 
-  2. Medium
+  2. Medium<br/>
       Medium 난이도 역시 코드를 먼저 확인해보자.
 
       ```php
@@ -164,7 +164,7 @@
       그 결과 다음과 같이 원하는 결과를 얻을 수 있다. 작은따옴표 없이도 공격이 수행되는 이유는, 코드가 Low 단계와는 다르게 입력값을 id 변수에 텍스트로 집어넣는것이 아닌 정수로 집어넣기 때문이다.(그리고 이는 인터페이스가 드롭다운 형식으로 되어있기 때문으로 보인다.)<br/>
       <img src="/assets/230629/230629_screenshot_4.png" width="100%" height="100%" alt="Screenshot_of_query_request_result"><br/>
 
-  3. High
+  3. High<br/>
       High 난이도의 코드는 다음과 같다.
 
       ```php
