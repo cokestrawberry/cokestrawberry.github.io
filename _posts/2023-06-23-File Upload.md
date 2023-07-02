@@ -11,9 +11,9 @@
 **실습 과정**
   1. Low
       * 우선 시스템의 동작 방식을 알기 위해 시스템의 원래 의도대로 공격자의 local에서 파일을 골라 업로드 해 보았다. 업로드에 쓰인 test.txt파일은 단순히 test라는 문자열이 적힌 텍스트파일이다.
-      <img src="/assets/230623/230623_screenshot_1.png" width="100%" height="100%" alt="Screenshot_of_file_upload_result"><br/><br/>
+      <img src="/assets/230623/230623_screenshot_1.png" width="50%" height="50%" alt="Screenshot_of_file_upload_result"><br/><br/>
       * test.txt파일을 업로드 하면 위의 사진과 같이 해당 파일이 업로드된 서버 내부 디렉토리가 반환된다. 해당 위치를 참조하여 test.txt파일에 연결하면 아래 사진과 같이 test.txt의 내용이 출력되는 것을 알 수 있다. 서버 역할을 하는 컴퓨터 내부 문서를 웹페이지라고 하는 것을 생각해보면 대상 시스템에 'test'라는 텍스트가 보이는 웹 페이지를 업로드 한 것으로 생각할 수 있다.
-      <img src="/assets/230623/230623_screenshot_2.png" width="100%" height="100%" alt="Screenshot_of_uploaded_file"><br/><br/>
+      <img src="/assets/230623/230623_screenshot_2.png" width="50%" height="50%" alt="Screenshot_of_uploaded_file"><br/><br/>
       * 이에 업로드 할 파일을 일반적인 텍스트파일이 아닌 스크립트 언어로 제작된 웹쉘로 선택한다면, 다른 부가적인 동작을 유도할 수 있을 것으로 생각된다. 그래서 다음과 같은 코드의 웹쉘을 하나 만들었다.     
       ```php
         <?php
@@ -23,7 +23,7 @@
         ?>
       ```
       * 해당 웹쉘은 PHP를 기반으로 하고 있으며, 'command'를 인자로 전달받아 'cmd'라는 변수를 생성하고, 'cmd'의 값이 설정되어 있다면(isset()으로 확인) system()함수를 이용하여 CL(Command Line)명령어로 전달하여 실행시킨다. 이에 기반해 해당 PHP파일을 업로드 한 뒤, command의 값을 'cat /etc/passwd'로 하여 해당 경로에 접속하면 다음과 같이 CLI에서 'cat /etc/passwd'명령을 실행한 것과 같은 결과를 얻을 수 있다.
-      <img src="/assets/230623/230623_screenshot_4.png" width="100%" height="100%" alt="Screenshot_of_webshell_upload_result"><br/><br/>
+      <img src="/assets/230623/230623_screenshot_4.png" width="50%" height="50%" alt="Screenshot_of_webshell_upload_result"><br/><br/>
 
   2. Medium
       * 우선 해당 난이도의 시스템 소스코드를 확인해 보면 다음과 같다. 해당 코드를 확인해보면, 업로드한 파일의 형식을 확인하여 jpeg 또는 png파일만 업로드를 허용하고 있다.
@@ -60,9 +60,9 @@
       ?> 
       ```
       * 따라서 burpsuite를 이용하여 시스템에 전달되는 파일의 형식을 확인해보면 php형식의 파일이 전달된다고 쓰인 부분이 있는데, 해당 위치의 값을 시스템에서 허가하고 있는 형식인 image/jpeg으로 변경해주고 forward로 전달해 주었다.
-      <img src="/assets/230623/230623_screenshot_6.png" width="100%" height="100%" alt="Screenshot_of_burpesuite_intercept"><br/><br/>
+      <img src="/assets/230623/230623_screenshot_6.png" width="50%" height="50%" alt="Screenshot_of_burpesuite_intercept"><br/><br/>
       * 그 결과, low에서처럼 'cat /etc/passwd'을 인자로 설정하면 해당 결과를 확인할 수 있다.
-      <img src="/assets/230623/230623_screenshot_4.png" width="100%" height="100%" alt="Screenshot_of_webshell_upload_result"><br/><br/>
+      <img src="/assets/230623/230623_screenshot_4.png" width="50%" height="50%" alt="Screenshot_of_webshell_upload_result"><br/><br/>
 
 ### 결론
   1. **원인 분석**
