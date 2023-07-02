@@ -86,7 +86,7 @@
       ```
 
       이렇게 되면 탐색 조건이 <'user_id'의 값이 공백이거나 '1' = '1'인 경우>가 되어 테이블의 모든 데이터들에 대해 <'user_id'의 값이 공백>은 거짓이지만 <'1' = '1'>이 참이 되어 모든 데이터들이 SELECT의 대상이 되고, 그 결과 다음과 같이 모든 데이터들이 출력된다.<br/>
-      <img src="/assets/230629/230629_screenshot_1.png" width="100%" height="100%" alt="Screenshot_of_query_request_result"><br/>
+      <img src="/assets/230629/230629_screenshot_1.png" width="50%" height="50%" alt="Screenshot_of_query_request_result"><br/>
 
   2. Medium<br/>
       Medium 난이도 역시 코드를 먼저 확인해보자.
@@ -154,8 +154,8 @@
       ```
 
       코드를 보면 mysqli_real_escape_string()라는 함수를 이용해서 입력에 대해 이스케이핑을 하는것으로 보인다. 그 외에는 입력을 드롭다운으로 받는다는 특징이 있기에 우선 bursuite를 이용하여 입력값을 드롭다운에서 선택된 값이 아닌 SQL Injection 공격문으로 대체되도록 하였다. 하지만 다음과 같이 SQL구문 오류가 뜨는것을 보면 특수문자인 작은따옴표(')가 이스케이핑 되는것 같다.
-      <img src="/assets/230629/230629_screenshot_2.png" width="100%" height="100%" alt="Screenshot_of_intercept_query"><br/><br/>
-      <img src="/assets/230629/230629_screenshot_3.png" width="100%" height="100%" alt="Screenshot_of_escape"><br/><br/>
+      <img src="/assets/230629/230629_screenshot_2.png" width="50%" height="50%" alt="Screenshot_of_intercept_query"><br/><br/>
+      <img src="/assets/230629/230629_screenshot_3.png" width="50%" height="50%" alt="Screenshot_of_escape"><br/><br/>
       하지만 굳이 '1'='1' 이라는 조건을 만들어 줄 필요는 없기에 다음과 같이 조건을 변경하여 진행하였다.
 
       ```sql
@@ -163,7 +163,7 @@
       ```
 
       그 결과 다음과 같이 원하는 결과를 얻을 수 있다. 작은따옴표 없이도 공격이 수행되는 이유는, 코드가 Low 단계와는 다르게 입력값을 id 변수에 텍스트로 집어넣는것이 아닌 정수로 집어넣기 때문이다.(그리고 이는 인터페이스가 드롭다운 형식으로 되어있기 때문으로 보인다.)<br/>
-      <img src="/assets/230629/230629_screenshot_4.png" width="100%" height="100%" alt="Screenshot_of_query_request_result"><br/>
+      <img src="/assets/230629/230629_screenshot_4.png" width="50%" height="50%" alt="Screenshot_of_query_request_result"><br/>
 
   3. High<br/>
       High 난이도의 코드는 다음과 같다.
@@ -232,7 +232,7 @@
       ```
 
       위의 문장을 입력으로 넣으면, 세미콜론에서 문장이 끝나고 그 이후 부분인 [LIMIT 1;";]은 주석처리되어 무시된다. 그 결과 다음과 같이 원하는 결과를 얻을 수 있다.
-      <img src="/assets/230629/230629_screenshot_5.png" width="100%" height="100%" alt="Screenshot_of_query_request_result"><br/>
+      <img src="/assets/230629/230629_screenshot_5.png" width="50%" height="50%" alt="Screenshot_of_query_request_result"><br/>
 
 ### 결론
   1. **원인 분석**
