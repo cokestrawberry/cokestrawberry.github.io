@@ -4,7 +4,7 @@
 
 ### 개요
   6주차는 SQL Injection 공격에 관한 내용이다. SQL Injection 공격은 데이터베이스 내부의 데이터를 조회하기 위해 쿼리(Query)문을 입력하는데, 이때 탐색 조건을 무력화 하는 등의 방법으로 악의적인 쿼리문을 입력하여 정해진 범위 이외의 데이터를 조회할 수 있게 되는 공격이다.
-  <img src="/assets/230629/SQL_Injection_Diagram.png" width="50%" height="50%" alt="SQL_Injection_Diagram"><br/>
+  <center><img src="/assets/230629/SQL_Injection_Diagram.png" width="50%" height="50%" alt="SQL_Injection_Diagram"></center><br/>
   21년도 조사에서는 순위가 조금 낮아졌으나, 이전까지 OWASP top 10 목록에서 1위를 놓치지 않던, 공격 난이도에 비해 파급력이 큰 공격이다.<br/>
   실습은 DVWA를 이용 하였으며, 실습 환경은 작성자의 가상머신에서 이루어졌다(ARM / VMWare Fusion - Kali Linux)<br/>
 
@@ -86,7 +86,7 @@
       ```
 
       이렇게 되면 탐색 조건이 <'user_id'의 값이 공백이거나 '1' = '1'인 경우>가 되어 테이블의 모든 데이터들에 대해 <'user_id'의 값이 공백>은 거짓이지만 <'1' = '1'>이 참이 되어 모든 데이터들이 SELECT의 대상이 되고, 그 결과 다음과 같이 모든 데이터들이 출력된다.<br/>
-      <img src="/assets/230629/230629_screenshot_1.png" width="50%" height="50%" alt="Screenshot_of_query_request_result"><br/>
+     <center><img src="/assets/230629/230629_screenshot_1.png" width="50%" height="50%" alt="Screenshot_of_query_request_result"></center><br/>
 
   2. Medium<br/>
       Medium 난이도 역시 코드를 먼저 확인해보자.
@@ -154,8 +154,8 @@
       ```
 
       코드를 보면 mysqli_real_escape_string()라는 함수를 이용해서 입력에 대해 이스케이핑을 하는것으로 보인다. 그 외에는 입력을 드롭다운으로 받는다는 특징이 있기에 우선 bursuite를 이용하여 입력값을 드롭다운에서 선택된 값이 아닌 SQL Injection 공격문으로 대체되도록 하였다. 하지만 다음과 같이 SQL구문 오류가 뜨는것을 보면 특수문자인 작은따옴표(')가 이스케이핑 되는것 같다.
-      <img src="/assets/230629/230629_screenshot_2.png" width="50%" height="50%" alt="Screenshot_of_intercept_query"><br/><br/>
-      <img src="/assets/230629/230629_screenshot_3.png" width="50%" height="50%" alt="Screenshot_of_escape"><br/><br/>
+      <center><img src="/assets/230629/230629_screenshot_2.png" width="50%" height="50%" alt="Screenshot_of_intercept_query"></center><br/><br/>
+      <center><img src="/assets/230629/230629_screenshot_3.png" width="50%" height="50%" alt="Screenshot_of_escape"></center><br/><br/>
       하지만 굳이 '1'='1' 이라는 조건을 만들어 줄 필요는 없기에 다음과 같이 조건을 변경하여 진행하였다.
 
       ```sql
@@ -163,7 +163,7 @@
       ```
 
       그 결과 다음과 같이 원하는 결과를 얻을 수 있다. 작은따옴표 없이도 공격이 수행되는 이유는, 코드가 Low 단계와는 다르게 입력값을 id 변수에 텍스트로 집어넣는것이 아닌 정수로 집어넣기 때문이다.(그리고 이는 인터페이스가 드롭다운 형식으로 되어있기 때문으로 보인다.)<br/>
-      <img src="/assets/230629/230629_screenshot_4.png" width="50%" height="50%" alt="Screenshot_of_query_request_result"><br/>
+      <center><img src="/assets/230629/230629_screenshot_4.png" width="50%" height="50%" alt="Screenshot_of_query_request_result"></center><br/>
 
   3. High<br/>
       High 난이도의 코드는 다음과 같다.
@@ -232,7 +232,7 @@
       ```
 
       위의 문장을 입력으로 넣으면, 세미콜론에서 문장이 끝나고 그 이후 부분인 [LIMIT 1;";]은 주석처리되어 무시된다. 그 결과 다음과 같이 원하는 결과를 얻을 수 있다.
-      <img src="/assets/230629/230629_screenshot_5.png" width="50%" height="50%" alt="Screenshot_of_query_request_result"><br/>
+      <center><img src="/assets/230629/230629_screenshot_5.png" width="50%" height="50%" alt="Screenshot_of_query_request_result"></center><br/>
 
 ### 결론
   1. **원인 분석**

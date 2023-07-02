@@ -17,14 +17,14 @@
     <center><img src="/assets/230527/230527_screenshot_1.png" width="50%" height="50%" alt="Screenshot_of_uploaded_password_list"></center><br/><br/>
     - 이후 start attack을 눌러 공격을 시작하면 준비된 패스워드 목록에 대해 각각 로그인을 시도한다.<br/>
     - 이때 다른 패스워드와는 다른 값을 리턴하는 패스워드가 있는데, 이 패스워드를 이용하여 로그인을 시도해 본다.<br/><br/>
-    <img src="/assets/230527/230527_screenshot_2.png" width="50%" height="50%" alt="Screenshot_of_trying_password_list"><br/><br/>
+    <center><img src="/assets/230527/230527_screenshot_2.png" width="50%" height="50%" alt="Screenshot_of_trying_password_list"></center><br/><br/>
     - 해당 패스워드를 이용하여 DVWA에서 id = admin, password = password로 로그인을 시도하면 로그인에 성공했다는 화면이 뜬다.<br/><br/>
-    <img src="/assets/230527/230527_screenshot_3.png" width="50%" height="50%" alt="Screenshot_of_result_of_brute_force_attack"><br/><br/>
+    <center><img src="/assets/230527/230527_screenshot_3.png" width="50%" height="50%" alt="Screenshot_of_result_of_brute_force_attack"></center><br/><br/>
 
 ### 결론
   1. **원인 분석**<br/>
     - 다음의 코드가 DVWA의 brute force 실습 페이지이다.<br/><br/>
-    <img src="/assets/230527/230527_screenshot_4.png" width="50%" height="50%" alt="Screenshot_of_low.php"><br/><br/>
+    <center><img src="/assets/230527/230527_screenshot_4.png" width="50%" height="50%" alt="Screenshot_of_low.php"></center><br/><br/>
     - '$query'로 시작하는 문장이 데이터베이스를 쿼리문을 통해 조회하는 역할을 하는데, 데이터베이스에서 'user' 정보가 입력받은 username($user)이고 'password' 정보가 입력받은 password($pass)인 조합을 찾는(SELECT)다는 뜻이라고 보면 될 듯 하다.<br/><br/>
     - 조회 결과에 따라 $result의 값이 달라지고, 이를 조회한 결과와 비교해서 일치하는 것이 있으면(이때 username-password 조합은 유일하다고 가정) 입력된 username의 보호구역(protected area)에 들어왔다는 문구와 위의 사진에서 볼 수 있는 이미지가 뜬다.<br/><br/>
     - 이때 입력받은 username과 password 값($user, $pass)에 대해, 별다른 과정 없이 해당 조합이 데이터베이스에 존재하는지 여부만 확인하는 방식으로 동작하므로, 몇번이고 로그인을 시도 할 수 있기 때문에 가능한 모든 조합의 경우를 시도할 수 있다.<br/><br/>
