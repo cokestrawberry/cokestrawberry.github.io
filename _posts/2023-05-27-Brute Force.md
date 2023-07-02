@@ -14,7 +14,7 @@
   2. **실습 과정**<br/>
     - Burpsuite에서 제공되는 기능을 이용하여 공격을 진행하였다.<br/>
     - 관리자 계정 admin에 대해 brute force 공격을 진행하기 위해 kali linux에서 제공하는 흔히 사용되는 패스워드 목록 파일을 payload로 업로드 하였다.<br/><br/>
-    <img src="/assets/230527/230527_screenshot_1.png" width="50%" height="50%" alt="Screenshot_of_uploaded_password_list"><br/><br/>
+    <center><img src="/assets/230527/230527_screenshot_1.png" width="50%" height="50%" alt="Screenshot_of_uploaded_password_list"></center><br/><br/>
     - 이후 start attack을 눌러 공격을 시작하면 준비된 패스워드 목록에 대해 각각 로그인을 시도한다.<br/>
     - 이때 다른 패스워드와는 다른 값을 리턴하는 패스워드가 있는데, 이 패스워드를 이용하여 로그인을 시도해 본다.<br/><br/>
     <img src="/assets/230527/230527_screenshot_2.png" width="50%" height="50%" alt="Screenshot_of_trying_password_list"><br/><br/>
