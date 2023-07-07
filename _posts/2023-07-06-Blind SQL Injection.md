@@ -105,11 +105,8 @@
       그 결과 위의 사진과 같이 사용자들의 이름 정보와 패스워드의 해시값을 크랙한 결과를 확인할 수 있다.
 
 ### 결론
-  1. **원인 분석**
-      .
-
-  2. **예상 대응 방안**
-      .
+  **원인 분석 & 예상 대응 방안**
+      본문의 내용 중 sqlmap으로 취약점을 탐색하는 과정에서 매개변수인 id를 통해서 조회하려는 값을 전달받는 것이 취약점을 가지고 그 방법으로 여러 sql 조회 명령어를 추가하는 방식이 안내되어 있는데, 지난 주차의 일반적인 SQL Injection과 마찬가지로 입력값과 방식을 제한할 필요가 있어보인다. (조회 결과가 보이지 않을 뿐이지 데이터베이스 조회 방식은 같은것으로 보인다.)
 
 ### 마치며
   * 항상 칼리 리눅스 내부에 미리 설치된 여러가질 해킬 툴들을 보면서 '이렇게 많은 툴들을 다 쓰기는 할까?' 싶었는데, 이번 주차 실습을 진행하면서 평소에 쓰던 burpsuite 이외에 다른 툴을 처음으로 써 보았다. 이 많은 툴들을 다 써본적이 있는 사람이라면 정말 다양한 내용을 공부해 보았을거라 생각하니 대단한것 같다. (물론 대부분은 다 써보지도 못하겠지?)
@@ -117,3 +114,4 @@
 ### 참조
   * [OWASP - SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection)
   * [OWASP - SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
+  * [SQLMAP 사용법](https://eliez3r.github.io/post/2019/10/25/study-db-sqlmap.html)
