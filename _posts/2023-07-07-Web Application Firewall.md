@@ -3,8 +3,8 @@
 ## Groot Security 스터디를 진행하면서 각 주차별 학습 내용 이외에 기록해 놓으면 좋을 정보들
 
 ### 개요
-    <center><img src="/assets/230707/diagram_of_waf.png" width="50%" height="50%" alt="Diagram_of_WAF"></center><br/>
-    WAF(Web Application Firewall)은 일반적인 네트워크 방화벽과는 다르게 웹 애플리케이션 보안에 특화되어 있는 솔루션이다.
+  <center><img src="/assets/230707/diagram_of_waf.png" width="50%" height="50%" alt="Diagram_of_WAF"></center><br/>
+  WAF(Web Application Firewall)은 일반적인 네트워크 방화벽과는 다르게 웹 애플리케이션 보안에 특화되어 있는 솔루션이다.
 
 ### 본론
   **WAF 구성 요소**<br/>
@@ -35,7 +35,7 @@
     - 지원 팀이 긴급성에 따라 티켓을 발행하고 에스컬레이션할 수 있는 기능을 제공
 
 ### 마치며
-    .
+  .
 
 ### 참조
   * [WAF란 무엇일까?(Akamai)](https://www.akamai.com/ko/glossary/what-is-a-waf)
