@@ -114,4 +114,5 @@
 ### 참조
   * [OWASP - SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection)
   * [OWASP - SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
+  * [Database Dump](https://en.wikipedia.org/wiki/Database_dump)
   * [SQLMAP 사용법](https://eliez3r.github.io/post/2019/10/25/study-db-sqlmap.html)
