@@ -41,3 +41,4 @@
   * [WAF란 무엇일까?(Akamai)](https://www.akamai.com/ko/glossary/what-is-a-waf)
   * [WAF란 무엇일까?(Oracle)](https://www.oracle.com/kr/security/cloud-security/what-is-waf/)
   * [웹방화벽이란?](https://www.pentasecurity.co.kr/web-application-firewall/)
+  * [AWS WAF](https://aws.amazon.com/ko/waf/)
