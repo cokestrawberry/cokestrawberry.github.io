@@ -3,7 +3,7 @@
 ## Groot Security 스터디를 진행하면서 각 주차별 학습 내용 이외에 기록해 놓으면 좋을 정보들
 
 ### 개요
-  <center><img src="/assets/230707/diagram_of_waf.png" width="50%" height="50%" alt="Diagram_of_WAF"></center><br/>
+  <center><img src="/assets/230707/diagram_of_waf.png" width="100%" height="100%" alt="Diagram_of_WAF"></center><br/>
   WAF(Web Application Firewall)은 일반적인 네트워크 방화벽과는 다르게 웹 애플리케이션 보안에 특화되어 있는 솔루션이다.
 
 ### 본론
