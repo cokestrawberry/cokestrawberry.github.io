@@ -45,7 +45,7 @@
       ```
 
       low와는 다르게 session ID가 연속된 수열이 아닌 session ID가 생성되는 시간으로 정해진다. 하지만 session ID를 여러번 생성해보면 1초마다 값이 1씩 커진다는 것을 알 수 있는데 결국 이 방법도 비 연속적인 선형 수열로 값을 생성하기에 무작위 대입 등의 방법을 통해서 다른 사용자를 가장하여 서버에 연결할 수 있게 된다.<br/>
-      <img src="/assets/230710/230710_screenshot_2.png" width="50%" height="50%" alt="Weak_Session_IDs_medium"><br/>
+      <img src="/assets/230710/230710_screenshot_2.png" width="50%" height="50%" alt="Weak_Session_IDs_medium"><br/><br/>
       <img src="/assets/230710/230710_screenshot_3.png" width="50%" height="50%" alt="Weak_Session_IDs_medium"><br/>
 
   3. High
@@ -67,10 +67,10 @@
       ```
 
       코드를 확인해보면 session ID을 생성한 후 md5를 이용하여 해시값을 만든 후 사용하고 있는데, 정작 해당 해시값의 원본이 Low단계에서의 연속적 선형 수열과 같아 쉽게 유추될 수 있다.<br/>
-      <img src="/assets/230710/230710_screenshot_4.png" width="50%" height="50%" alt="Weak_Session_IDs_high"><br/>
-      <img src="/assets/230710/230710_screenshot_5.png" width="50%" height="50%" alt="Weak_Session_IDs_high_hash"><br/>
-      <img src="/assets/230710/230710_screenshot_6.png" width="50%" height="50%" alt="Weak_Session_IDs_high"><br/>
-      <img src="/assets/230710/230710_screenshot_7.png" width="50%" height="50%" alt="Weak_Session_IDs_high_hash"><br/>
+      <img src="/assets/230710/230710_screenshot_4.png" width="50%" height="50%" alt="Weak_Session_IDs_high"><br/><br/>
+      <img src="/assets/230710/230710_screenshot_5.png" width="50%" height="50%" alt="Weak_Session_IDs_high_hash"><br/><br/>
+      <img src="/assets/230710/230710_screenshot_6.png" width="50%" height="50%" alt="Weak_Session_IDs_high"><br/><br/>
+      <img src="/assets/230710/230710_screenshot_7.png" width="50%" height="50%" alt="Weak_Session_IDs_high_hash"><br/><br/>
       따라서 이 방법도 그리 안전한 방법은 아닌것으로 보인다.
 
 ### 결론
