@@ -66,4 +66,8 @@
       ?> 
       ```
 
-      코드를 확인해보면 
+      코드를 확인해보면 session ID을 생성한 후 md5를 이용하여 해시값을 만든 후 사용하고 있는데, 정작 해당 해시값의 원본이 Low단계에서의 연속적 선형 수열과 같아 쉽게 유추될 수 있다.<br/>
+      <img src="/assets/230710/230710_screenshot_3.1.png" width="50%" height="50%" alt="Weak_Session_IDs_high"><br/>
+      <img src="/assets/230710/230710_screenshot_3.1.1png" width="50%" height="50%" alt="Weak_Session_IDs_high_hash"><br/>
+      <img src="/assets/230710/230710_screenshot_3.2.png" width="50%" height="50%" alt="Weak_Session_IDs_high"><br/>
+      <img src="/assets/230710/230710_screenshot_3.2.1png" width="50%" height="50%" alt="Weak_Session_IDs_high_hash"><br/>
