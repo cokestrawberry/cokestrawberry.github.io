@@ -71,3 +71,4 @@
       <img src="/assets/230710/230710_screenshot_3.1.1png" width="50%" height="50%" alt="Weak_Session_IDs_high_hash"><br/>
       <img src="/assets/230710/230710_screenshot_3.2.png" width="50%" height="50%" alt="Weak_Session_IDs_high"><br/>
       <img src="/assets/230710/230710_screenshot_3.2.1png" width="50%" height="50%" alt="Weak_Session_IDs_high_hash"><br/>
+      따라서 이 방법도 그리 안전한 방법은 아닌것으로 보인다.
