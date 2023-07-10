@@ -27,9 +27,8 @@
       ?>
       ```
 
-      코드를 보면, 이전에 발급받은 session ID가 존재하지 않는 경우 session ID로 0을 부여하고, 이후에 발급되는 session ID들은 이전 값에 1을 더한 값으로 설정된다. 이 경우 무작위나 특수한 방법으로 session ID가 발급된 것이 아니므로 단순히 자신 이전의 값을 sesssion ID로 전달하는 것 만으로 다른 사용자로 가장하고 서버에 연결할 수 있다.
-      <img src="/assets/230710/230710_screenshot_1.1.png" width="50%" height="50%" alt="Weak_Session_IDs_low"><br/>
-      <img src="/assets/230710/230710_screenshot_1.2.png" width="50%" height="50%" alt="Weak_Session_IDs_low"><br/>
+      코드를 보면, 이전에 발급받은 session ID가 존재하지 않는 경우 session ID로 0을 부여하고, 이후에 발급되는 session ID들은 이전 값에 1을 더한 값으로 설정된다. 이 경우 무작위나 특수한 방법으로 session ID가 발급된 것이 아니므로 단순히 자신 이전의 값을 sesssion ID로 전달하는 것 만으로 다른 사용자로 가장하고 서버에 연결할 수 있다.<br/>
+      <img src="/assets/230710/230710_screenshot_1.png" width="50%" height="50%" alt="Weak_Session_IDs_low"><br/>
 
   2. Medium
       역시 소스코드를 먼저 확인해 보자.
@@ -45,6 +44,26 @@
       ?>
       ```
 
-      low와는 다르게 session ID가 연속된 수열이 아닌 session ID가 생성되는 시간으로 정해진다. 하지만 session ID를 여러번 생성해보면 1초마다 값이 1씩 커진다는 것을 알 수 있는데 결국 이 방법도 비 연속적인 선형 수열로 값을 생성하기에 무작위 대입 등의 방법을 통해서 다른 사용자를 가장하여 서버에 연결할 수 있게 된다.
+      low와는 다르게 session ID가 연속된 수열이 아닌 session ID가 생성되는 시간으로 정해진다. 하지만 session ID를 여러번 생성해보면 1초마다 값이 1씩 커진다는 것을 알 수 있는데 결국 이 방법도 비 연속적인 선형 수열로 값을 생성하기에 무작위 대입 등의 방법을 통해서 다른 사용자를 가장하여 서버에 연결할 수 있게 된다.<br/>
       <img src="/assets/230710/230710_screenshot_2.1.png" width="50%" height="50%" alt="Weak_Session_IDs_medium"><br/>
       <img src="/assets/230710/230710_screenshot_2.2.png" width="50%" height="50%" alt="Weak_Session_IDs_medium"><br/>
+
+  3. High
+      역시 소스코드부터 확인해 보자.
+
+      ```php
+      <?php
+      $html = "";
+
+      if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        if (!isset ($_SESSION['last_session_id_high'])) {
+          $_SESSION['last_session_id_high'] = 0;
+        }
+        $_SESSION['last_session_id_high']++;
+        $cookie_value = md5($_SESSION['last_session_id_high']);
+        setcookie("dvwaSession", $cookie_value, time()+3600, "/vulnerabilities/weak_id/", $_SERVER['HTTP_HOST'], false, false);
+      }
+      ?> 
+      ```
+
+      코드를 확인해보면 
