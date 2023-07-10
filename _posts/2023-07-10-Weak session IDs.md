@@ -72,3 +72,31 @@
       <img src="/assets/230710/230710_screenshot_3.2.png" width="50%" height="50%" alt="Weak_Session_IDs_high"><br/>
       <img src="/assets/230710/230710_screenshot_3.2.1png" width="50%" height="50%" alt="Weak_Session_IDs_high_hash"><br/>
       따라서 이 방법도 그리 안전한 방법은 아닌것으로 보인다.
+
+### 결론
+  1. **원인 분석**
+      * 난이도가 상승할수록 session ID를 보호하는 수준이 높아지나, session ID를 생성하는 방법에 취약점이 존재하여 딱히 의미가 없는 절차가 되었다. MD5를 이용하여 해시값을 생성하던, 생성 시간을 인자로 넣던, 결국 선형 수열을 이용한 session ID 생성 방법이라 공격자가 무작위 대입 방법등을 통하여 본인이 할당받은 값 이전의 session ID들을 충분히 유추하거나 탐지해 낼 수 있다.
+
+  2. **예상 대응 방안**
+      Impossible 난이도의 코드를 확인해보자.
+
+      ```php
+      <?php
+      $html = "";
+
+      if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $cookie_value = sha1(mt_rand() . time() . "Impossible");
+         setcookie("dvwaSession", $cookie_value, time()+3600, "/vulnerabilities/weak_id/", $_SERVER['HTTP_HOST'], true, true);
+      }
+      ?> 
+      ```
+
+      코드를 확인해보면, session ID생성 과정에서부터 무작위 난수를 사용하고, 해당 seed의 유출을 대비하여 생성 시간까지 이용한 조합을 sha1을 이용해 해싱하고 그 결과값을 session ID로 사용하고 있다. 이처럼 복합적인 요소 / 무작위 요소를 이용한 후 이를 암호화 하여 사용하면 가능한 session ID가 비선형적으로 생성되기에 현실적 시간 내에 계산되지 않을 수 있다.
+
+### 마치며
+  이번 주차는 특정 암호를 찾아내는 것이 아니라, 말 그대로 현재 시스템의 취약점을 찾아 분석하는 것이라 다른 주차에 비해 간단하면서도 그만큼 여러가지 가능성을 고려해야 해서 생각해 볼 것이 많았다. 그래도 코드를 분석하면 대체로 답을 얻을 수 있어서 그렇게 어렵지는 않았던 것 같다.
+
+### 참조
+  * [Session Prediction](https://owasp.org/www-community/attacks/Session_Prediction)
+  * [쿠키/세션에 대하여](https://medium.com/@cute_mustard_sardine_17/쿠키-cookie-세션-session-에-대하여-e8a974d76df8)
+  * [Securing Session IDs](https://www.hacksplaining.com/prevention/weak-session)
