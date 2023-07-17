@@ -4,8 +4,8 @@ main:
     url: /
   #- title: "DVWA"
   #    url: /categories/DVWA/
-  #- title: "Categories"
-  #    url: /categories/
+  - title: "Categories"
+    url: /categories/
   #- title: "Glossary"
   #    url: https://cokestrawberry.github.io/Glossary/
   #- title: "Quick-Start Guide"
