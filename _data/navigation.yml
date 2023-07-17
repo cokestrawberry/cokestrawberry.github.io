@@ -4,10 +4,10 @@ main:
     url: /
   - title: "DVWA"
     url: /categories/DVWA/
-  - title: "Categories"
-    url: /categories/
-  #- title: "Glossary"
-  #    url: https://cokestrawberry.github.io/Glossary/
+  #- title: "Categories"
+  #  url: /categories/
+  - title: "Glossary"
+      url: /categories/Glossary/
   #- title: "Quick-Start Guide"
   #   url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
   # - title: "About"
