@@ -1,6 +1,13 @@
-# Additional Knowledge
+---
+title: "Web Application Firewall"
+categories: Glossary
+tags: jekyll
+toc: true  
+toc_sticky: true 
+---
 
-## Groot Security 스터디를 진행하면서 각 주차별 학습 내용 이외에 기록해 놓으면 좋을 정보들
+## Additional Knowledge
+ - Groot Security 스터디를 진행하면서 각 주차별 학습 내용 이외에 기록해 놓으면 좋을 정보들
 
 ### 개요
   <center><img src="/assets/230707/diagram_of_waf.png" width="100%" height="100%" alt="Diagram_of_WAF"></center><br/>

@@ -1,6 +1,13 @@
-# Groot Security Study - Week 6
+---
+title: "SQL Injection"
+categories: DVWA
+tags: jekyll
+toc: true  
+toc_sticky: true 
+---
 
-## DVWA의 내용들에 대해 직접 실습하고 그에 대한 보고서를 정리하는 블로그
+## Groot Security Study - Week 6
+ - DVWA의 내용들에 대해 직접 실습하고 그에 대한 보고서를 정리하는 블로그
 
 ### 개요
   6주차는 SQL Injection 공격에 관한 내용이다. SQL Injection 공격은 데이터베이스 내부의 데이터를 조회하기 위해 쿼리(Query)문을 입력하는데, 이때 탐색 조건을 무력화 하는 등의 방법으로 악의적인 쿼리문을 입력하여 정해진 범위 이외의 데이터를 조회할 수 있게 되는 공격이다.

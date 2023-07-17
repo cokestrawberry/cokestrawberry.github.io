@@ -1,6 +1,13 @@
-# Groot Security Study - Week 5
+---
+title: "File Upload"
+categories: DVWA
+tags: jekyll
+toc: true  
+toc_sticky: true 
+---
 
-## DVWA의 내용들에 대해 직접 실습하고 그에 대한 보고서를 정리하는 블로그
+## Groot Security Study - Week 5
+ - DVWA의 내용들에 대해 직접 실습하고 그에 대한 보고서를 정리하는 블로그
 
 ### 개요
   * 5주차는 File Upload 공격에 관한 내용이다. File upload는 공격자가 악성 파일을 시스템에 업로드하여 시스템의 권한을 획득하거나 서버를 변조시키는 등의 방식으로 웹 서버를 장악하는 공격 방법이다.

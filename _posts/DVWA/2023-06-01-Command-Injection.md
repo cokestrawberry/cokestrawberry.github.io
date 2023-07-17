@@ -1,6 +1,13 @@
-# Groot Security Study - Week 2
+---
+title: "Command Injection"
+categories: DVWA
+tags: jekyll
+toc: true  
+toc_sticky: true 
+---
 
-## DVWA의 내용들에 대해 직접 실습하고 그에 대한 보고서를 정리하는 블로그
+## Groot Security Study - Week 2
+ - DVWA의 내용들에 대해 직접 실습하고 그에 대한 보고서를 정리하는 블로그
 
 ### 개요
   * 2주차는 Command Injection 공격에 관한 내용이다.<br/>

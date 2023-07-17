@@ -1,3 +1,11 @@
+---
+title: "Brute Force"
+categories: DVWA
+tags: jekyll
+toc: true  
+toc_sticky: true 
+---
+
 ## Groot Security Study - Week 1
  - DVWA의 내용들에 대해 직접 실습하고 그에 대한 보고서를 정리하는 블로그
 

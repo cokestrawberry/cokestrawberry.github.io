@@ -1,6 +1,13 @@
-# Groot Security Study - Week 7
+---
+title: "Blind SQL Injection"
+categories: DVWA
+tags: jekyll
+toc: true  
+toc_sticky: true 
+---
 
-## DVWA의 내용들에 대해 직접 실습하고 그에 대한 보고서를 정리하는 블로그
+## Groot Security Study - Week 7
+ - DVWA의 내용들에 대해 직접 실습하고 그에 대한 보고서를 정리하는 블로그
 
 ### 개요
   7주차 역시 SQL Injection 공격에 관한 내용이다. 지난 주차의 SQL Injection과 큰 틀은 같지만 이번엔 쿼리문의 조회 결과를 반환할때 해당 데이터의 값이 아닌 존재 여부만 반환한다는 점이 다르다.
