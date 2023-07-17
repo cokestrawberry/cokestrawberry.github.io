@@ -1,7 +1,7 @@
 # main links
 main:
-  - title: "DVWA"
-      url: /DVWA/
+  #- title: "DVWA"
+  #    url: https://cokestrawberry.github.io/DVWA/
   #- title: "Glossary"
   #    url: https://cokestrawberry.github.io/Glossary/
   #- title: "Quick-Start Guide"

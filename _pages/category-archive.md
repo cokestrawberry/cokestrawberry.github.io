@@ -1,6 +1,6 @@
 ---
 title: "DVWA"
 layout: categories
-permalink: /DVWA/
+permalink: /categories/
 author_profile: true
 ---
