@@ -7,8 +7,7 @@ toc_sticky: true
 ---
 
 # Additional Knowledge
-
-## Groot Security 스터디를 진행하면서 각 주차별 학습 내용 이외에 기록해 놓으면 좋을 정보들
+ - Groot Security 스터디를 진행하면서 각 주차별 학습 내용 이외에 기록해 놓으면 좋을 정보들
 
 ### 개요
   Document Object Model, 즉 DOM은 XML, HTML 문서의 각 항목을 계층으로 표현하여 생성, 변형, 삭제할 수 있도록 돕는 인터페이스이다. 웹 페이지의 콘텐츠 및 구조, 그리고 스타일 요소를 구조화 시켜 표현하여 프로그래밍 언어가 해당 문서에 접근하여 읽고 조작할 수 있도록 API를 제공하는 역할을 한다.
