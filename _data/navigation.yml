@@ -1,5 +1,7 @@
 # main links
 main:
+  - title: "DVWA"
+     url: /categories/DVWA/
   - title: "Categories"
       url: /categories/
   #- title: "Glossary"
