@@ -1,7 +1,6 @@
 ---
 title: "Web Application Firewall"
 categories: Glossary
-tags: jekyll
 toc: true  
 toc_sticky: true 
 ---

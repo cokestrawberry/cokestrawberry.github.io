@@ -1,7 +1,6 @@
 ---
 title: "Blind SQL Injection"
 categories: DVWA
-tags: jekyll
 toc: true  
 toc_sticky: true 
 ---

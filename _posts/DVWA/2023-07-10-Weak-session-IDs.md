@@ -1,7 +1,6 @@
 ---
 title: "Weak Session IDs"
 categories: DVWA
-tags: jekyll
 toc: true  
 toc_sticky: true 
 ---

@@ -1,7 +1,6 @@
 ---
 title: "Brute Force"
 categories: DVWA
-tags: jekyll
 toc: true  
 toc_sticky: true 
 ---

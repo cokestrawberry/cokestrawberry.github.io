@@ -1,7 +1,6 @@
 ---
 title: "Document Object Model"
 categories: Glossary
-tags: jekyll
 toc: true  
 toc_sticky: true 
 ---
