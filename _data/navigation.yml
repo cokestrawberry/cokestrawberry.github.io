@@ -2,8 +2,8 @@
 main:
   - title: "Home"
     url: /
-  #- title: "DVWA"
-  #    url: /categories/DVWA/
+  - title: "DVWA"
+    url: /categories/DVWA/
   - title: "Categories"
     url: /categories/
   #- title: "Glossary"
