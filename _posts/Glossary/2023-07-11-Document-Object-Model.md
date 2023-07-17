@@ -1,3 +1,11 @@
+---
+title: "Document Object Model"
+categories: Glossary
+tags: jekyll
+toc: true  
+toc_sticky: true 
+---
+
 # Additional Knowledge
 
 ## Groot Security 스터디를 진행하면서 각 주차별 학습 내용 이외에 기록해 놓으면 좋을 정보들
