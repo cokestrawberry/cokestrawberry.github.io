@@ -24,6 +24,7 @@ toc_sticky: true
 
       ```php
       <?php
+
       if( isset( $_POST[ 'btnSign' ] ) ) {
         // Get input
         $message = trim( $_POST[ 'mtxMessage' ] );
@@ -57,6 +58,35 @@ toc_sticky: true
       본 실습에서는 바로 결과를 알 수 있게 이를 팝업으로 띄웠지만, 실제 공격에서는 공격자의 PC로 해당 정보를 전송하는 등의 방식으로 데이터를 취득하게 된다.
 
   2. Medium<br/>
+      medium난이도는 소스코드를 먼저 확인해 보면 다음과 같다.
+
+      ```php
+      <?php
+
+      if( isset( $_POST[ 'btnSign' ] ) ) {
+        // Get input
+        $message = trim( $_POST[ 'mtxMessage' ] );
+        $name    = trim( $_POST[ 'txtName' ] );
+
+        // Sanitize message input
+        $message = strip_tags( addslashes( $message ) );
+        $message = ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"],  $message ) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""));
+        $message = htmlspecialchars( $message );
+
+        // Sanitize name input
+        $name = str_replace( '<script>', '', $name );
+        $name = ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"],  $name ) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""));
+
+        // Update database
+        $query  = "INSERT INTO guestbook ( comment, name ) VALUES ( '$message', '$name' );";
+        $result = mysqli_query($GLOBALS["___mysqli_ston"],  $query ) or die( '<pre>' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . '</pre>' );
+
+        //mysql_close();
+      }
+
+      ?> 
+      ```
+
   3. High<br/>
 
 ### 결론
