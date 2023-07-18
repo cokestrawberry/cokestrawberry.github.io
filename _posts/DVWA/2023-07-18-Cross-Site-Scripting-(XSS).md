@@ -18,6 +18,7 @@ toc_sticky: true
 ### 본론
 **실습 과정**
   1. Low<br/>
+      <img src="/assets/230718/230718_screenshot_1.png" width="50%" height="50%" alt="XSS_WebSite_Form">
   2. Medium<br/>
   3. High<br/>
 
