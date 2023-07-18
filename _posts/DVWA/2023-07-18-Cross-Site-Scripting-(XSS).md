@@ -18,7 +18,34 @@ toc_sticky: true
 ### 본론
 **실습 과정**
   1. Low<br/>
-      <img src="/assets/230718/230718_screenshot_1.png" width="50%" height="50%" alt="XSS_WebSite_Form">
+      <img src="/assets/230718/230718_screenshot_1.png" width="50%" height="50%" alt="XSS_WebSite_Form"><br/>
+      사진을 보면 공격 대상이 대시보드에 각각의 사용자가 자신의 이름과 남기고 싶은 메세지를 적으면 방명록을 남길 수 있는 시스템이라는 것을 알 수 있다.
+      소스코드를 확인해 보면 다음과 같다.
+
+      ```php
+      <?php
+      if( isset( $_POST[ 'btnSign' ] ) ) {
+        // Get input
+        $message = trim( $_POST[ 'mtxMessage' ] );
+        $name    = trim( $_POST[ 'txtName' ] );
+
+        // Sanitize message input
+        $message = stripslashes( $message );
+        $message = ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"],  $message ) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""));
+
+        // Sanitize name input
+        $name = ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"],  $name ) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""));
+
+        // Update database
+        $query  = "INSERT INTO guestbook ( comment, name ) VALUES ( '$message', '$name' );";
+        $result = mysqli_query($GLOBALS["___mysqli_ston"],  $query ) or die( '<pre>' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . '</pre>' );
+
+        //mysql_close();
+      }
+
+      ?>
+      ```
+
   2. Medium<br/>
   3. High<br/>
 
