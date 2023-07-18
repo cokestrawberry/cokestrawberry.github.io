@@ -15,7 +15,7 @@ toc_sticky: true
 
 ### 본론
 **실습 과정**
-  1. Low
+  1. Low<br/>
       먼저 소스코드를 확인해 보자.
 
       ```php
@@ -36,7 +36,7 @@ toc_sticky: true
       코드를 보면, 이전에 발급받은 session ID가 존재하지 않는 경우 session ID로 0을 부여하고, 이후에 발급되는 session ID들은 이전 값에 1을 더한 값으로 설정된다. 이 경우 무작위나 특수한 방법으로 session ID가 발급된 것이 아니므로 단순히 자신 이전의 값을 sesssion ID로 전달하는 것 만으로 다른 사용자로 가장하고 서버에 연결할 수 있다.<br/><br/>
       <img src="/assets/230710/230710_screenshot_1.png" width="50%" height="50%" alt="Weak_Session_IDs_low"><br/>
 
-  2. Medium
+  2. Medium<br/>
       역시 소스코드를 먼저 확인해 보자.
 
       ```php
@@ -54,7 +54,7 @@ toc_sticky: true
       <img src="/assets/230710/230710_screenshot_2.png" width="50%" height="50%" alt="Weak_Session_IDs_medium"><br/><br/>
       <img src="/assets/230710/230710_screenshot_3.png" width="50%" height="50%" alt="Weak_Session_IDs_medium"><br/>
 
-  3. High
+  3. High<br/>
       역시 소스코드부터 확인해 보자.
 
       ```php

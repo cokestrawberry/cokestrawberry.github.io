@@ -16,7 +16,7 @@ toc_sticky: true
 
 ### 본론
 **실습과정**
-  1. Low
+  1. Low<br/>
       우선 소스코드를 확인해 보면
 
       ```php
