@@ -46,6 +46,16 @@ toc_sticky: true
       ?>
       ```
 
+      코드를 살펴보면, 입력된 이름과 메세지를 데이터베이스에 INSERT해 주는 동작을 수행하는데 SQL Injection에 대한 보호만 되어있고 XSS에 대해서는 여타 별다른 보호가 되어있지 않은 듯 하다. 따라서 아래와 같은 스크립트를 메세지로 입력하였다.
+
+      ```javascript
+      <script>alert(document.cookie)</script>
+      ```
+
+      그 결과, 해당 내용이 데이터베이스에 추가되고, 다시 페이지가 로드 되었을때 해당 부분이 스크립트로 인식되어 실행되므로 다음과 같은 팝업이 뜬다.<br/>
+      <img src="/assets/230718/230718_screenshot_2.png" width="50%" height="50%" alt="XSS_Popup"><br/>
+      본 실습에서는 바로 결과를 알 수 있게 이를 팝업으로 띄웠지만, 실제 공격에서는 공격자의 PC로 해당 정보를 전송하는 등의 방식으로 데이터를 취득하게 된다.
+      
   2. Medium<br/>
   3. High<br/>
 
